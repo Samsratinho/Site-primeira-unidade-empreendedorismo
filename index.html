@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeRoute Natal - Seu Caminho Seguro</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☀️ PotiguiA ☀️</h1>
+            <p>Encontre o caminho mais seguro para sua caminhada na Cidade do Sol</p>
+        </header>
+
+        <div class="search-container">
+            <div class="input-group">
+                <input type="text" id="start" placeholder="Ponto de partida">
+                <input type="text" id="end" placeholder="Destino">
+            </div>
+            <button id="findRoute">Encontrar Rota Segura</button>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="route-info">
+            <div class="info-card">
+                <h3>Detalhes da Rota</h3>
+                <p>Distância: <span id="distance">0.0 km</span></p>
+                <p>Tempo Estimado: <span id="time">0 min</span></p>
+                <p>Índice de Segurança: <span id="safety">N/A</span></p>
+            </div>
+            <div class="safety-tips">
+                <h3>Dicas de Segurança</h3>
+                <ul>
+                    <li>Prefira áreas bem iluminadas</li>
+                    <li>Evite caminhos isolados</li>
+                    <li>Compartilhe sua rota com amigos</li>
+                    <li>Mantenha seu celular carregado</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
