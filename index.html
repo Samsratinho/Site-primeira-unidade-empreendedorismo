@@ -10,19 +10,66 @@
 <body>
     <div class="container">
         <header>
-            <h1>☀️ PotiguiA ☀️</h1>
-            <p>Encontre o caminho mais seguro para sua caminhada na Cidade do Sol</p>
+            <img src="img/Potiguia-Logo.jpg.png" alt="">
         </header>
+
+        <div class="about-section">
+            <h2>Quem Somos</h2>
+            <p class="about-intro">Nas grandes cidades, caminhar ou pedalar nem sempre é sinônimo de liberdade. A falta de segurança, infraestrutura precária e informações insuficientes sobre o ambiente urbano tornam o simples ato de se locomover um desafio diário, especialmente para quem opta por uma mobilidade mais sustentável.</p>
+            <p class="about-mission">Pensando nisso, nasceu a ideia do PotiguIA, um aplicativo de rotas inteligentes focado exclusivamente em pedestres e ciclistas. Mais do que um app de caminhos, nossa proposta é criar uma ferramenta de segurança, bem-estar e cidadania.</p>
+            <div class="features-list">
+                <h3>Funcionalidades do  aplicativo:</h3>
+                <ul>
+                    <li>✔ Caminhos mais seguros – com base em dados de criminalidade, iluminação e movimentação urbana</li>
+                    <li>✔ Indicação de infraestrutura – ciclovias, calçadas, rampas, paraciclos</li>
+                    <li>✔ Evite problemas – receba alertas sobre trechos perigosos, mal iluminados ou em obras</li>
+                    <li>✔ Relatos da comunidade – usuários ajudam a mapear problemas e boas rotas em tempo real</li>
+                    <li>✔ Modo noturno inteligente – prioriza ruas bem iluminadas e movimentadas à noite</li>
+                    <li>✔ Função de segurança pessoal – compartilhe seu trajeto com amigos ou acione o botão de emergência</li>
+                </ul>
+            </div>
+        </div>
 
         <div class="search-container">
             <div class="input-group">
                 <input type="text" id="start" placeholder="Ponto de partida">
                 <input type="text" id="end" placeholder="Destino">
             </div>
+            <div class="route-options">
+                <label>
+                    <input type="checkbox" id="avoidSlopes" checked>
+                    Evitar subidas íngremes
+                </label>
+                <label>
+                    <input type="checkbox" id="preferBikeLanes" checked>
+                    Preferir ciclovias
+                </label>
+                <label>
+                    <input type="checkbox" id="safetyPriority" checked>
+                    Priorizar segurança
+                </label>
+            </div>
             <button id="findRoute">Encontrar Rota Segura</button>
         </div>
 
+        <div class="emergency-panel">
+            <button id="emergencyButton" class="emergency-button">
+                🆘 EMERGÊNCIA
+            </button>
+            <div class="trusted-contact">
+                <input type="tel" id="trustedContact" placeholder="Contato de confiança (WhatsApp)">
+                <button id="shareRoute">Compartilhar Rota</button>
+            </div>
+        </div>
+
         <div id="map"></div>
+
+        <div class="alerts-panel">
+            <h3>🚨 Alertas em Tempo Real</h3>
+            <div id="alertsList" class="alerts-list">
+                <!-- Alertas serão inseridos aqui dinamicamente -->
+            </div>
+        </div>
 
         <div class="route-info">
             <div class="info-card">
@@ -30,6 +77,13 @@
                 <p>Distância: <span id="distance">0.0 km</span></p>
                 <p>Tempo Estimado: <span id="time">0 min</span></p>
                 <p>Índice de Segurança: <span id="safety">N/A</span></p>
+                <p>Próximo Checkpoint: <span id="nextCheckpoint">N/A</span></p>
+            </div>
+            <div class="amenities-info">
+                <h3>Pontos de Apoio no Caminho</h3>
+                <div id="amenitiesList">
+                    <!-- Lista de banheiros e pontos de descanso -->
+                </div>
             </div>
             <div class="safety-tips">
                 <h3>Dicas de Segurança</h3>
