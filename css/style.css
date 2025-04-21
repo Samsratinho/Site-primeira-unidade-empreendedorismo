@@ -169,3 +169,39 @@ button:hover {
         padding: 15px;
     }
 }
+/*Comando para entrar no instagram */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    margin-top: 40px;
+    border-top: 2px solid #ddd;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #d63384;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer a:hover {
+    color: #b2226f;
+    transform: scale(1.05);
+}
+/*Animação do Sol girando no Pontiguia*/
+.sun-icon {
+    display: inline-block;
+    animation: girarSol 6s linear infinite;
+    transform-origin: center;
+    margin: 0 8px;
+}
+@keyframes girarSol {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
