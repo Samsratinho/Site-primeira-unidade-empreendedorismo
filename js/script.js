@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-/*
-// Initialize the map centered on a default location (Natal, Brazil)
-=======
 // Initialize the map centered on Natal, Brazil
->>>>>>> e9b14b99e60130a53ccddb5f95f321619e08c859
-const map = L.map('map').setView([-5.7945, -35.2120], 13);
+const map = L.map('map').setView([-5.843212241989942, -35.199019795073895], 17);
 
 // Add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -15,23 +10,18 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let startMarker = null;
 let endMarker = null;
 let routeLine = null;
-let amenityMarkers = [];
 let checkpointInterval = null;
 let activeRoute = null;
 
-// Simulated data for amenities (in a real app, this would come from a database)
-const amenities = [
-    { type: 'bathroom', lat: -5.7945, lng: -35.2120, name: 'Banheiro Público - Ponta Negra' },
-    { type: 'rest', lat: -5.7855, lng: -35.2030, name: 'Área de Descanso - Praia do Meio' },
-    { type: 'bathroom', lat: -5.7799, lng: -35.2055, name: 'Banheiro Público - Praia dos Artistas' },
-    { type: 'rest', lat: -5.7912, lng: -35.1988, name: 'Área de Descanso - Parque das Dunas' }
-];
-
-// Simulated data for safety zones (in a real app, this would come from a database)
+// Simulated data for safety zones
 const safetyZones = [
-    { lat: -5.7945, lng: -35.2120, level: 9, description: 'Área bem iluminada e movimentada' },
-    { lat: -5.7855, lng: -35.2030, level: 7, description: 'Área com patrulhamento regular' },
-    { lat: -5.7799, lng: -35.2055, level: 8, description: 'Área comercial com câmeras' }
+    { lat: -5.8384, lng: -35.1989, level: 9, description: 'Biblioteca Central Zila Mamede - Área bem iluminada e monitorada' },
+    { lat: -5.8379, lng: -35.1982, level: 9, description: 'Praça Cívica do Campus - Área movimentada e segura' },
+    { lat: -5.8372, lng: -35.1977, level: 8, description: 'Centro de Convivência - Área com câmeras e segurança' },
+    { lat: -5.8389, lng: -35.1995, level: 9, description: 'Setor de Aulas IV - Área bem iluminada e patrulhada' },
+    { lat: -5.8395, lng: -35.2001, level: 8, description: 'Instituto Metrópole Digital - Monitoramento 24h' },
+    { lat: -5.8368, lng: -35.1973, level: 7, description: 'Restaurante Universitário - Área movimentada' },
+    { lat: -5.8401, lng: -35.2005, level: 8, description: 'Departamento de Informática - Câmeras de segurança' }
 ];
 
 // Initialize emergency features
@@ -62,9 +52,8 @@ function initializeEmergency() {
 // Handle emergency button click
 function handleEmergency() {
     const currentPosition = getCurrentPosition();
-    const emergencyMessage = `🆘 EMERGÊNCIA! Localização atual: ${currentPosition.lat}, ${currentPosition.lng}`;
     
-    // Simulate sending emergency alert (in a real app, this would contact emergency services)
+    // Simulate sending emergency alert
     alert('Alerta de emergência enviado! Serviços de emergência foram notificados.');
     
     // Send message to trusted contact
@@ -109,8 +98,6 @@ function shareRouteWithContact(isEmergency = false) {
 
     // Format WhatsApp URL
     const whatsappUrl = `https://wa.me/55${contact}?text=${encodeURIComponent(message)}`;
-    
-    // Open WhatsApp in a new window
     window.open(whatsappUrl, '_blank');
 }
 
@@ -129,29 +116,6 @@ map.on('click', function(e) {
 // Find route button click handler
 document.getElementById('findRoute').addEventListener('click', calculateAndDisplayRoute);
 
-// Show amenities on the map
-function showAmenities() {
-    // Clear existing amenity markers
-    amenityMarkers.forEach(marker => map.removeLayer(marker));
-    amenityMarkers = [];
-
-    // Add markers for each amenity
-    amenities.forEach(amenity => {
-        const icon = amenity.type === 'bathroom' ? '🚻' : '⛱️';
-        const marker = L.marker([amenity.lat, amenity.lng])
-            .bindPopup(`${icon} ${amenity.name}`)
-            .addTo(map);
-        amenityMarkers.push(marker);
-
-        // Add to amenities list
-        const amenitiesList = document.getElementById('amenitiesList');
-        const item = document.createElement('div');
-        item.className = 'amenity-item';
-        item.innerHTML = `<span class="icon">${icon}</span> ${amenity.name}`;
-        amenitiesList.appendChild(item);
-    });
-}
-
 // Simulate real-time alerts
 function startAlertSimulation() {
     const alerts = [
@@ -162,7 +126,7 @@ function startAlertSimulation() {
     ];
 
     setInterval(() => {
-        if (Math.random() > 0.7) { // 30% chance of new alert
+        if (Math.random() > 0.7) {
             const alertsList = document.getElementById('alertsList');
             const alertItem = document.createElement('div');
             alertItem.className = 'alert-item';
@@ -174,7 +138,7 @@ function startAlertSimulation() {
                 alertsList.removeChild(alertsList.lastChild);
             }
         }
-    }, 30000); // Check for new alerts every 30 seconds
+    }, 30000);
 }
 
 // Start periodic safety checks
@@ -186,13 +150,13 @@ function startSafetyChecks() {
     checkpointInterval = setInterval(() => {
         const nextCheckpoint = document.getElementById('nextCheckpoint');
         const checkpoints = [
-            'Próximo à Praia do Meio',
-            'Chegando ao Parque das Dunas',
-            'Próximo ao Shopping',
-            'Área monitorada'
+            'Próximo à Biblioteca Central',
+            'Chegando ao Centro de Convivência',
+            'Próximo ao Restaurante Universitário',
+            'Área monitorada do IMD'
         ];
         nextCheckpoint.textContent = checkpoints[Math.floor(Math.random() * checkpoints.length)];
-    }, 60000); // Update checkpoint every minute
+    }, 60000);
 }
 
 function calculateAndDisplayRoute() {
@@ -214,7 +178,7 @@ function calculateAndDisplayRoute() {
     const preferBikeLanes = document.getElementById('preferBikeLanes').checked;
     const safetyPriority = document.getElementById('safetyPriority').checked;
 
-    // Simulate route calculation with preferences
+    // Calculate route with preferences
     const routePoints = calculateSafeRoute(start, end, {
         avoidSlopes,
         preferBikeLanes,
@@ -241,20 +205,16 @@ function calculateAndDisplayRoute() {
     // Update route information
     updateRouteInfo(start, end);
 
-    // Show amenities along the route
-    showAmenities();
-
     // Start safety checks
     startSafetyChecks();
 }
 
 function calculateSafeRoute(start, end, preferences) {
-    // In a real app, this would use a routing service with safety data
-    // For now, we'll create a simple route with some waypoints
+    // Create a route with waypoints considering preferences
     const waypoints = [
         [start.lat, start.lng],
-        [-5.7899, -35.2080], // Safe waypoint 1
-        [-5.7855, -35.2030], // Safe waypoint 2
+        [start.lat + (end.lat - start.lat) * 0.33, start.lng + (end.lng - start.lng) * 0.33],
+        [start.lat + (end.lat - start.lat) * 0.66, start.lng + (end.lng - start.lng) * 0.66],
         [end.lat, end.lng]
     ];
 
@@ -292,8 +252,7 @@ function calculateDistance(start, end) {
 }
 
 function calculateSafetyScore(start, end) {
-    // In a real app, this would use actual crime data and safety factors
-    // For now, return a simulated score based on proximity to safe zones
+    // Calculate safety score based on proximity to safe zones
     const averageSafety = safetyZones.reduce((acc, zone) => acc + zone.level, 0) / safetyZones.length;
     return Math.min(10, Math.max(6, Math.round(averageSafety)));
 }
@@ -303,15 +262,10 @@ function toRad(degrees) {
 }
 
 function getCurrentPosition() {
-    // In a real app, this would use the Geolocation API
-    return startMarker ? startMarker.getLatLng() : { lat: -5.7945, lng: -35.2120 };
+    return startMarker ? startMarker.getLatLng() : { lat: -5.843212241989942, lng: -35.199019795073895 };
 }
 
-// Initialize emergency features and start alert simulation
-initializeEmergency();
-startAlertSimulation();
-
-// Reset markers button (optional feature)
+// Reset markers function
 function resetMarkers() {
     if (startMarker) {
         map.removeLayer(startMarker);
@@ -331,177 +285,9 @@ function resetMarkers() {
     document.getElementById('distance').textContent = '0.0 km';
     document.getElementById('time').textContent = '0 min';
     document.getElementById('safety').textContent = 'N/A';
-<<<<<<< HEAD
-}
-*/
-const bounds = L.latLngBounds(
-    L.latLng(-6.7, -38.7),  // 👈 Canto inferior esquerdo (sudoeste do RN)
-    L.latLng(-4.5, -34.5)   // 👈 Canto superior direito (nordeste do RN)
-);
-
-// Coordenadas da ECT - UFRN
-const ectCoords = [-5.8368, -35.2075];
-
-const map = L.map('map', {
-    center: ectCoords,
-    zoom: 8, // 👈 Zoom alto pra ver a ECT de pertinho
-    minZoom: 6, // 👈 Zoom out mínimo (não vê além do RN)
-    maxZoom: 18, // 👈 Zoom in máximo (chega pertinho dos prédios)
-    maxBounds: bounds,
-    //maxBoundsViscosity: 1.0, // 👈 Isso evita que o usuário arraste pra fora
-    scrollWheelZoom: true,
-    touchZoom: true,
-    doubleClickZoom: true,
-    boxZoom: false,
-    keyboard: false,
-    dragging: true
-});
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-}).addTo(map);
-
-// Adiciona um marcadorzinho maroto na ECT só pra mostrar o ponto inicial
-const ectMarker = L.marker([-5.836487, -35.207434]).addTo(map).bindPopup('Escola de Ciências e Tecnologia');
-
-let startMarker = null;
-let endMarker = null;
-let routeLine = null;
-
-// Função para verificar se uma coordenada está dentro dos limites do RN
-async function geocode(placeName) {
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}`);
-    const data = await response.json();
-    if (data.length > 0) {
-        return {
-            lat: parseFloat(data[0].lat),
-            lng: parseFloat(data[0].lon)
-        };
-    } else {
-        throw new Error("Local não encontrado");
-    }
-}
-
-// Manipulando cliques no mapa para adicionar marcadores
-map.on('click', function(e) {
-    const { lat, lng } = e.latlng;
-
-    if (!isInsideBounds(lat, lng)) {
-        alert('Por favor, selecione um ponto dentro do estado do Rio Grande do Norte.');
-        return;
-    }
-
-    if (!startMarker) {
-        startMarker = L.marker(e.latlng).addTo(map);
-        document.getElementById('start').value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-    } else if (!endMarker) {
-        endMarker = L.marker(e.latlng).addTo(map);
-        document.getElementById('end').value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-        calculateAndDisplayRoute();
-    }
-});
-
-// Botão de "Encontrar Rota"
-document.getElementById('findRoute').addEventListener('click', calculateAndDisplayRoute);
-
-async function calculateAndDisplayRoute() {
-    const startInput = document.getElementById('start').value;
-    const endInput = document.getElementById('end').value;
-
-    try {
-        const startCoords = await geocode(startInput);
-        const endCoords = await geocode(endInput);
-
-        // Verifica se está dentro do RN
-        const rnBounds = {
-            north: -4.000,
-            south: -6.350,
-            west: -38.000,
-            east: -34.000
-        };
-
-        function isInRN(coords) {
-            return coords.lat >= rnBounds.south && coords.lat <= rnBounds.north &&
-                   coords.lng >= rnBounds.west && coords.lng <= rnBounds.east;
-        }
-
-        if (!isInRN(startCoords) || !isInRN(endCoords)) {
-            alert("Apenas rotas dentro do estado do RN são permitidas.");
-            return;
-        }
-
-        // Limpa marcadores anteriores
-        if (startMarker) map.removeLayer(startMarker);
-        if (endMarker) map.removeLayer(endMarker);
-        if (routeLine) map.removeLayer(routeLine);
-
-        // Adiciona novos marcadores
-        startMarker = L.marker(startCoords).addTo(map);
-        endMarker = L.marker(endCoords).addTo(map);
-
-        // Cria rota direta
-        const routePoints = [ [startCoords.lat, startCoords.lng], [endCoords.lat, endCoords.lng] ];
-        routeLine = L.polyline(routePoints, { color: '#3498db', weight: 5, opacity: 0.7 }).addTo(map);
-        map.fitBounds(routeLine.getBounds(), { padding: [50, 50] });
-
-        // Atualiza info
-        updateRouteInfo(startCoords, endCoords);
-    } catch (error) {
-        alert("Erro ao encontrar local: " + error.message);
-    }
-    if (ectMarker) {
-        map.removeLayer(ectMarker);
-    }
-}
-
-function updateRouteInfo(start, end) {
-    const distance = calculateDistance(start, end);
-    const timeInMinutes = Math.round((distance / 5) * 60); // Estimativa de tempo com velocidade de 5 km/h
-    const safetyScore = Math.floor(Math.random() * 3) + 8; // Pontuação de segurança aleatória (8-10)
-
-    // Atualiza a interface com as informações
-    document.getElementById('distance').textContent = `${distance.toFixed(2)} km`;
-    document.getElementById('time').textContent = `${timeInMinutes} min`;
-    document.getElementById('safety').textContent = `${safetyScore}/10`;
-}
-
-function calculateDistance(start, end) {
-    const R = 6371; // Raio da Terra em quilômetros
-    const dLat = toRad(end.lat - start.lat);
-    const dLon = toRad(end.lng - start.lng);
-
-    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-              Math.cos(toRad(start.lat)) * Math.cos(toRad(end.lat)) *
-              Math.sin(dLon/2) * Math.sin(dLon/2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return R * c;
-}
-
-function toRad(degrees) {
-    return degrees * (Math.PI / 180);
-}
-
-// Função para resetar os marcadores
-function resetMarkers() {
-    if (startMarker) {
-        map.removeLayer(startMarker);
-        startMarker = null;
-    }
-    if (endMarker) {
-        map.removeLayer(endMarker);
-        endMarker = null;
-    }
-    if (routeLine) {
-        map.removeLayer(routeLine);
-        routeLine = null;
-    }
-    document.getElementById('start').value = '';
-    document.getElementById('end').value = '';
-    document.getElementById('distance').textContent = '0.0 km';
-    document.getElementById('time').textContent = '0 min';
-    document.getElementById('safety').textContent = 'N/A';
-=======
     document.getElementById('nextCheckpoint').textContent = 'N/A';
->>>>>>> e9b14b99e60130a53ccddb5f95f321619e08c859
 }
+
+// Initialize emergency features and start alert simulation
+initializeEmergency();
+startAlertSimulation();
